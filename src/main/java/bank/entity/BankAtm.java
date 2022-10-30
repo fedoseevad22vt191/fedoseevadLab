@@ -1,62 +1,103 @@
 package bank.entity;
+import bank.entity.enums.atmStatus;
 
-enum atmStatus {
-    working,
-    notworking,
-    nomoney
-}
-
-public class BankAtm extends BankOffice{
-    Integer atmID;
-    String atmName;
-    String atmAddress;
-    atmStatus atmStatus = bank.entity.atmStatus.working;
-    Integer bankID;
-    String maintenancePerson;
+public class BankAtm {
+    Integer id;
+    String name;
+    String address;
+    atmStatus status = atmStatus.working;
+    Bank bank;
+    BankOffice office;
+    Employee maintenancePerson;
     boolean givesCash;
     boolean receivesCash;
-    Integer atmFunds;
+    Integer funds;
     Integer maintenanceCost;
 
-    public BankAtm(String atmName, Integer atmID,
-                   String officeName, Integer officeID,
-                   String bankName, Integer bankId) {
-        super(officeName, officeID, bankName, bankId);
-        this.atmName = atmName; this. atmID = atmID;
-        atmAddress = officeAddress;
-        atmFunds = officeFunds/10;
-        bankID = id;
+    public BankAtm(String atmName, Integer atmID) {
+        this.name = atmName; this. id = atmID;
     }
 
-    public void setAtmStatus(atmStatus status) {
-        atmStatus = status;
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public atmStatus getStatus() {
-        return atmStatus;
+        return status;
+    }
+    public void setStatus(atmStatus status) {
+        this.status = status;
     }
 
-    public void setGivesCash(boolean status) {
-        givesCash = status;
+    public Bank getBank() {
+        return bank;
+    }
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
-    public boolean givesCash() {
+    public BankOffice getOffice() {
+        return office;
+    }
+    public void setOffice(BankOffice office) {
+        this.office = office;
+    }
+
+    public Employee getMaintenancePerson() {
+        return maintenancePerson;
+    }
+    public void setMaintenancePerson(Employee maintenancePerson) {
+        this.maintenancePerson = maintenancePerson;
+    }
+
+    public boolean isGivesCash() {
         return givesCash;
     }
-
-    public void setReceivesCash(boolean status) {
-        receivesCash = status;
+    public void setGivesCash(boolean givesCash) {
+        this.givesCash = givesCash;
     }
 
-    public boolean receivesCash() {
+    public boolean isReceivesCash() {
         return receivesCash;
     }
-
-    public void print() {
-        super.print();
-        System.out.print("ATM " + atmID + " in office " + officeID + ", " + officeAddress + "\n" + getStatus().toString());
-        System.out.print(", Maintenance person: " + maintenancePerson + "\n");
-        System.out.print("Current funds: " + atmFunds + "\n\n");
+    public void setReceivesCash(boolean receivesCash) {
+        this.receivesCash = receivesCash;
     }
 
+    public Integer getFunds() {
+        return funds;
+    }
+    public void setFunds(Integer funds) {
+        this.funds = funds;
+    }
+
+    public Integer getMaintenanceCost() {
+        return maintenanceCost;
+    }
+    public void setMaintenanceCost(Integer maintenanceCost) {
+        this.maintenanceCost = maintenanceCost;
+    }
+
+    @Override
+    public String toString() {
+        return "ATM " + id + " in office " + office.getName() + ", " + office.getAddress() + "\n" + status +
+        ", Maintenance person: " + maintenancePerson + "\n" + "Current funds: " + funds + "\n\n";
+    }
 }

@@ -1,30 +1,24 @@
 package bank.service;
 
+import bank.entity.BankAtm;
+import bank.entity.BankOffice;
+import bank.entity.enums.officeStatus;
+
 public interface BankOfficeService {
 
-    public void setOfficeAddress(String address);
+    // create
+    public BankOffice create(String name, Integer id);
+    // create-through-copy
+    public BankOffice create(BankOffice office);
+    // read
+    public BankOffice read();
+    // delete
+    public void delete(BankOffice office);
 
-    public void setStatus(boolean status);
-
-    boolean isWorking();
-
-    public void setAtmSpace(boolean status);
-
-    boolean hasSpaceForAtm();
-
-    public void addATM();
-
-    public void setLoans(boolean status);
-
-    boolean givesLoans();
-
-    public void setGivesCash(boolean status);
-
-    boolean givesCash();
-
-    public void setReceivesCash(boolean status);
-
-    boolean receivesCash();
-
-    public void print();
+    // updates
+    public void changeStatus(BankOffice office, officeStatus status);
+    public void addATM(BankOffice office, BankAtm atm);
+    public void addCash(BankOffice office, Integer cash);
+    public void removeCash(BankOffice office, Integer cash);
+    public void changeRentCost(BankOffice office, Integer newCost);
 }

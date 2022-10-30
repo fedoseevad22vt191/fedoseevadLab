@@ -1,16 +1,25 @@
 package bank.service;
 
+import bank.entity.Bank;
+import bank.entity.BankOffice;
+import bank.entity.Employee;
+
+import java.util.Date;
+
 public interface EmployeeService {
 
-    public void setPosition(String position);
+    // create
+    public Employee create(String name, Integer id, Date DOB, Bank bank, BankOffice bankOffice);
+    // create-through-copy
+    public Employee create(Employee employee);
+    // read
+    public Employee read();
+    // delete
+    public void delete(Employee employee);
 
-    public void setRemote(boolean status);
+    // updates
+    public void changeSalary(Employee employee, Integer newSalary);
+    public void changeOffice(Employee employee, BankOffice office);
+    public void promote(Employee employee, String newPosition);
 
-    public boolean isRemote();
-
-    public void setGivesLoans(boolean status);
-
-    public boolean givesLoans();
-
-    public void print();
 }

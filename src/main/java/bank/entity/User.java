@@ -1,34 +1,86 @@
 package bank.entity;
 import java.util.Date;
-import java.util.random.RandomGenerator;
 
-public class User extends Employee {
-    Integer userID;
-    String userName;
-    Date userDOB;
+public class User {
+    Integer id;
+    String name;
+    Date DOB;
     String work;
     Integer monthlyIncome;
-    String otherBanks;
-    Integer creditAccountID;
-    Integer paymentAccountID;
+    Bank banks;             // в будушем - коллекция
+    CreditAccount creditAcc;
+    PaymentAccount paymentAcc;
     Integer loanRating;
 
-    public User(String userName, Integer userID, Date userDOB,
-                String employeeName, Integer employeeID, Date employeeDOB,
-                String atmName, Integer atmID,
-                String officeName, Integer officeID,
-                String bankName, Integer bankId) {
-        super(employeeName, employeeID, employeeDOB, atmName, atmID, officeName, officeID, bankName, bankId);
-        this.userName = userName; this.userID = userID; this.userDOB = userDOB;
-        this.bankID = id;
-        this.officeID = employeeOfficeID;
-        RandomGenerator generator = RandomGenerator.getDefault();
-        monthlyIncome = generator.nextInt(0,10000);
-        loanRating = monthlyIncome/10-monthlyIncome%1000;
+    public User(String userName, Integer userID, Date userDOB) {
+        this.name = userName; this.id = userID; this.DOB = userDOB;
     }
 
-    public void print() {
-        super.print();
-        System.out.print("User " + userName + "with income of " + monthlyIncome + "\n\n");
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getDOB() {
+        return DOB;
+    }
+    public void setDOB(Date DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getWork() {
+        return work;
+    }
+    public void setWork(String work) {
+        this.work = work;
+    }
+
+    public Integer getMonthlyIncome() {
+        return monthlyIncome;
+    }
+    public void setMonthlyIncome(Integer monthlyIncome) {
+        this.monthlyIncome = monthlyIncome;
+    }
+
+    public Bank getBanks() {
+        return banks;
+    }
+    public void setBanks(Bank banks) {
+        this.banks = banks;
+    }
+
+    public CreditAccount getCreditAcc() {
+        return creditAcc;
+    }
+    public void setCreditAcc(CreditAccount creditAcc) {
+        this.creditAcc = creditAcc;
+    }
+
+    public PaymentAccount getPaymentAcc() {
+        return paymentAcc;
+    }
+    public void setPaymentAcc(PaymentAccount paymentAcc) {
+        this.paymentAcc = paymentAcc;
+    }
+
+    public Integer getLoanRating() {
+        return loanRating;
+    }
+    public void setLoanRating(Integer loanRating) {
+        this.loanRating = loanRating;
+    }
+
+    @Override
+    public String toString() {
+        return "User " + name + "with income of " + monthlyIncome + "\n\n";
     }
 }

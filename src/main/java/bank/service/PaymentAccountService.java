@@ -1,8 +1,21 @@
 package bank.service;
 
+import bank.entity.Bank;
+import bank.entity.PaymentAccount;
+import bank.entity.User;
+
 public interface PaymentAccountService {
 
-    public void addFunds(Integer value);
+    // create
+    public PaymentAccount create(Integer id, User user, Bank bank);
+    // create-through-copy
+    public PaymentAccount create(PaymentAccount acc);
+    // read
+    public PaymentAccount read();
+    // delete
+    public void delete(PaymentAccount acc);
 
-    public void print();
+    // updates
+    public void addFunds(PaymentAccount acc, Integer cash);
+
 }

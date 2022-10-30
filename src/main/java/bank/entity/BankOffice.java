@@ -1,80 +1,105 @@
 package bank.entity;
+import bank.entity.enums.officeStatus;
 import bank.service.BankOfficeService;
 
-public class BankOffice extends Bank implements BankOfficeService {
-    String officeName;
-    Integer officeID;
-    String officeAddress;
-    boolean isWorking;
+public class BankOffice{
+    String name;
+    Integer id;
+    String address;
+    officeStatus status = officeStatus.working;
     boolean hasSpaceForAtm;
-    Integer atmOfficeCount;
+    Integer atmCount = 0;
     boolean givesLoans;
     boolean givesCash;
     boolean receivesCash;
-    Integer officeFunds;
+    Integer funds;
     Integer rentCost;
 
-    public BankOffice(String officeName, Integer officeID,
-                      String bankName, Integer bankId) {
-        super(bankName, bankId);
-        this.officeName = officeName; this.officeID = officeID;
-        officeFunds = funds/100;
+    public BankOffice(String officeName, Integer officeID) {
+        this.name = officeName; this.id = officeID;
     }
 
-    public void setOfficeAddress(String address) {
-        this.officeAddress = address;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setStatus(boolean status) {
-        isWorking = status;
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public boolean isWorking() {
-        return isWorking;
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setAtmSpace(boolean status) {
-        hasSpaceForAtm = status;
+    public Integer getAtmCount() {
+        return atmCount;
+    }
+    public void setAtmCount(Integer atmCount) {
+        this.atmCount = atmCount;
+    }
+
+    public officeStatus getStatus() {
+        return status;
+    }
+    public void setStatus(officeStatus newstatus) {
+        status = newstatus;
     }
 
     public boolean hasSpaceForAtm() {
         return hasSpaceForAtm;
     }
-
-    public void addATM() {
-        atmOfficeCount++;
-        bankATMs++;
-    }
-
-    public void setLoans(boolean status) {
-        givesLoans = status;
-    }
-
     public boolean givesLoans() {
         return givesLoans;
     }
-
-    public void setGivesCash(boolean status) {
-        givesCash = status;
-    }
-
     public boolean givesCash() {
         return givesCash;
     }
-
-    public void setReceivesCash(boolean status) {
-        receivesCash = status;
-    }
-
     public boolean receivesCash() {
         return receivesCash;
     }
 
-    public void print() {
-        super.print();
-        System.out.print("Bank office " + officeName + " at " + officeAddress + '\n');
-        if (isWorking()) System.out.print("Working right now.\n");
-        else System.out.print("Currently closed.\n");
-        System.out.print("Current funds: " + officeFunds + "\n\n");
+    public void setHasSpaceForAtm(boolean hasSpaceForAtm) {
+        this.hasSpaceForAtm = hasSpaceForAtm;
     }
+    public void setGivesLoans(boolean givesLoans) {
+        this.givesLoans = givesLoans;
+    }
+    public void setGivesCash(boolean givesCash) {
+        this.givesCash = givesCash;
+    }
+    public void setReceivesCash(boolean receivesCash) {
+        this.receivesCash = receivesCash;
+    }
+
+    public Integer getFunds() {
+        return funds;
+    }
+    public void setFunds(Integer funds) {
+        this.funds = funds;
+    }
+    public Integer getRentCost() {
+        return rentCost;
+    }
+    public void setRentCost(Integer rentCost) {
+        this.rentCost = rentCost;
+    }
+
+    @Override
+    public String toString() {
+        String st = "Bank office " + name + " at " + address + '\n';
+        if (status == officeStatus.working) st += "Working right now.\n";
+        else st += "Currently closed.\n";
+        st += "Current funds: " + funds + "\n\n";
+        return st;
+    }
+
 }
