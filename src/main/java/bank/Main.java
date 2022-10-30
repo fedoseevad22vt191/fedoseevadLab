@@ -1,7 +1,6 @@
 package bank;
 
 import bank.entity.*;
-import bank.service.BankOfficeService;
 import bank.service.impl.*;
 
 import java.util.Calendar;
@@ -28,7 +27,7 @@ public class Main {
 
         AtmServiceImpl atmService = new AtmServiceImpl();
         BankServiceImpl bankService = new BankServiceImpl();
-        BankOfficeService bankOfficeService = new BankOfficeServiceImpl();
+        BankOfficeServiceImpl bankOfficeService = new BankOfficeServiceImpl();
         CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         PaymentAccountServiceImpl paymentAccountService = new PaymentAccountServiceImpl();
@@ -41,5 +40,13 @@ public class Main {
         User user = userService.create("Ivanov Ivan", 0001, user1dob, bank);
         CreditAccount crAcc = creditAccountService.create(0001, startDate, 6, 50000, user, employee, bank);
         PaymentAccount payAcc = paymentAccountService.create(0001, user, bank);
+
+        System.out.print(bank);
+        System.out.print(office);
+        System.out.print(atm);
+        System.out.print(employee);
+        System.out.print(user);
+        System.out.print(crAcc);
+        System.out.print(payAcc);
     }
 }
