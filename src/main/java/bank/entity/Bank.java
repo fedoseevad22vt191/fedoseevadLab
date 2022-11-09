@@ -1,18 +1,23 @@
 package bank.entity;
 
+import java.util.ArrayList;
+
 public class Bank {
     Integer id;
     String name;
-    Integer officeCount = 0;
+    ArrayList<BankOffice> offices;
     Integer ATMs = 0;
-    Integer employeeCount = 0;
-    Integer clientCount = 0;
+    ArrayList<Employee> employees;
+    ArrayList<User> clients;
     Integer rating;
     Integer funds;
     Integer intRate;
 
     public Bank(String name, Integer id) {
         this.name = name; this.id = id;
+        offices = new ArrayList<>();
+        employees = new ArrayList<>();
+        clients = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -21,14 +26,14 @@ public class Bank {
     public String getName() {
         return name;
     }
-    public Integer getOfficeCount() {
-        return officeCount;
+    public ArrayList<BankOffice> getOffices() {
+        return offices;
     }
     public Integer getATMs() {
         return ATMs;
     }
-    public Integer getEmployeeCount() {
-        return employeeCount;
+    public ArrayList<Employee> getEmployees() {
+        return employees;
     }
     public Integer getClientCount() {
         return clientCount;
