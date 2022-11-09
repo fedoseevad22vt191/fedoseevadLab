@@ -12,6 +12,8 @@ public interface PaymentAccountService {
     public PaymentAccount create(PaymentAccount acc);
     // read
     public PaymentAccount read();
+    // set
+    public void set(PaymentAccount acc);
     // delete
     public void delete(PaymentAccount acc);
 

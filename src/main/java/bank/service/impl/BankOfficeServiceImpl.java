@@ -6,12 +6,17 @@ import bank.entity.BankOffice;
 import bank.entity.enums.officeStatus;
 import bank.service.BankOfficeService;
 
+import java.util.ArrayList;
+
 public class BankOfficeServiceImpl implements BankOfficeService {
+
+    BankOffice office = null;
 
     // create
     public BankOffice create(String name, Integer id, Bank bank) {
         BankOffice office = new BankOffice(name, id);
         office.setFunds(bank.getFunds() /100);
+        this.office = office;
         return office;
     }
     // create-through-copy
@@ -22,6 +27,12 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     public BankOffice read() {
         return this.office;
     }
+
+    // set
+    public void set(BankOffice office) {
+        this.office = office;
+    }
+
     // delete
     public void delete(BankOffice office) {
         if (this.office == office)
@@ -33,14 +44,26 @@ public class BankOfficeServiceImpl implements BankOfficeService {
         office.setStatus(status);
     }
     public void addATM(BankOffice office, BankAtm atm) {
-        office.setAtmCount(office.getAtmCount() + 1);
+        ArrayList<BankAtm> list = office.getAtms();
+
         atm.setAddress(office.getAddress());
         //atm.setBank();
         atm.setOffice(office);
+
+        list.add(atm);
+        office.setAtms(list);
     }
     public void addCash(BankOffice office, Integer cash) {
         office.setFunds(office.getFunds() + cash);
     }
+
+    @Override
+    public void removeATM(BankOffice office, BankAtm atm) {
+        ArrayList<BankAtm> list = office.getAtms();
+        if (!list.remove(atm)) System.out.println("Item not found!");
+        else office.setAtms(list);
+    }
+
     public void removeCash(BankOffice office, Integer cash) {
         office.setFunds(office.getFunds() - cash);
     }

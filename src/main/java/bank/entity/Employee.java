@@ -2,7 +2,7 @@ package bank.entity;
 
 import java.util.Date;
 
-public class Employee{
+public class Employee {
     Integer id;
     String name;
     Date DOB;

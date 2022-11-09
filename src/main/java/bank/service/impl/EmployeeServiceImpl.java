@@ -9,10 +9,13 @@ import java.util.Date;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
+    Employee employee = null;
+
     // create
     public Employee create(String name, Integer id, Date DOB, Bank bank, BankOffice bankOffice) {
         Employee employee = new Employee(name,id, DOB);
         employee.setBank(bank); employee.setOffice(bankOffice);
+        this.employee = employee;
         return employee;
     }
     // create-through-copy
@@ -22,6 +25,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     // read
     public Employee read() {
         return this.employee;
+    }
+    // set
+    public void set(Employee employee) {
+        this.employee = employee;
     }
     // delete
     public void delete(Employee employee) {

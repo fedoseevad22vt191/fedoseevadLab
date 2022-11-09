@@ -2,6 +2,7 @@ package bank.service;
 
 import bank.entity.Bank;
 import bank.entity.CreditAccount;
+import bank.entity.Employee;
 import bank.entity.User;
 
 import java.util.Date;
@@ -14,6 +15,8 @@ public interface CreditAccountService {
     public CreditAccount create(CreditAccount creditAcc);
     // read
     public CreditAccount read();
+    // set
+    public void set(CreditAccount creditAcc);
     // delete
     public void delete(CreditAccount creditAcc);
 

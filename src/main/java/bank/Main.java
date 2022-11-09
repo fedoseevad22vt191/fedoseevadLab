@@ -13,6 +13,8 @@ import java.util.Date;
     Q: надо ли хранить обрабатываемый обьект в сервисе??? если нет, то как должна работать операция delete, пока мы не подключили бд
     (потому что с подключением бд такого вопроса не было бы, рид забирает из бд и хранит в сервисе, делет убивает запись в бд)
 
+    Q: реализация функции set - правильно ли? надо ли?
+
     Связи между сущностями
     Q: почему у офиса нет связи с банком (создаёт проблемы при добавлении атм офису и т.д.)
     Q: у кредитного счёта только название банка или связь с банком? у платёжного счёта то же самое
@@ -32,6 +34,8 @@ public class Main {
         EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
         PaymentAccountServiceImpl paymentAccountService = new PaymentAccountServiceImpl();
         UserServiceImpl userService = new UserServiceImpl();
+
+        Список банков - и погнали создавать
 
         Bank bank = bankService.create("Sberbank", 0001);
         BankOffice office = bankOfficeService.create("Kostyukova", 0001);

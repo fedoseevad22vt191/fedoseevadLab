@@ -1,4 +1,5 @@
 package bank.entity;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
@@ -7,9 +8,9 @@ public class User {
     Date DOB;
     String work;
     Integer monthlyIncome;
-    Bank banks;             // в будушем - коллекция
-    CreditAccount creditAcc;
-    PaymentAccount paymentAcc;
+    ArrayList<Bank> banks;
+    ArrayList<CreditAccount> creditAccs;
+    ArrayList<PaymentAccount> paymentAccs;
     Integer loanRating;
 
     public User(String userName, Integer userID, Date userDOB) {
@@ -51,25 +52,25 @@ public class User {
         this.monthlyIncome = monthlyIncome;
     }
 
-    public Bank getBanks() {
+    public ArrayList<Bank> getBanks() {
         return banks;
     }
-    public void setBanks(Bank banks) {
+    public void setBanks(ArrayList<Bank> banks) {
         this.banks = banks;
     }
 
-    public CreditAccount getCreditAcc() {
-        return creditAcc;
+    public ArrayList<CreditAccount> getCreditAccs() {
+        return creditAccs;
     }
-    public void setCreditAcc(CreditAccount creditAcc) {
-        this.creditAcc = creditAcc;
+    public void setCreditAccs(ArrayList<CreditAccount> creditAccs) {
+        this.creditAccs = creditAccs;
     }
 
-    public PaymentAccount getPaymentAcc() {
-        return paymentAcc;
+    public ArrayList<PaymentAccount> getPaymentAccs() {
+        return paymentAccs;
     }
-    public void setPaymentAcc(PaymentAccount paymentAcc) {
-        this.paymentAcc = paymentAcc;
+    public void setPaymentAccs(ArrayList<PaymentAccount> paymentAccs) {
+        this.paymentAccs = paymentAccs;
     }
 
     public Integer getLoanRating() {

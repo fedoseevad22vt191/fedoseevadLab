@@ -8,12 +8,15 @@ import bank.service.AtmService;
 
 public class AtmServiceImpl implements AtmService {
 
+    BankAtm atm = null;
+
     // create
     public BankAtm create(String name, Integer id, Bank bank, BankOffice office) {
         BankAtm atm = new BankAtm(name, id);
         atm.setBank(bank);
         atm.setOffice(office); atm.setAddress(office.getAddress());
         atm.setFunds(office.getFunds() / 10);
+        this.atm = atm;
         return atm;
     }
     // create-through-copy
@@ -24,6 +27,8 @@ public class AtmServiceImpl implements AtmService {
     public BankAtm read() {
         return this.atm;
     }
+    // set
+    public void set(BankAtm atm) { this.atm = atm; }
     // delete
     public void delete(BankAtm atm) {
         if (this.atm == atm)

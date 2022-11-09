@@ -6,7 +6,7 @@ public class Bank {
     Integer id;
     String name;
     ArrayList<BankOffice> offices;
-    Integer ATMs = 0;
+    ArrayList<BankAtm> ATMs;
     ArrayList<Employee> employees;
     ArrayList<User> clients;
     Integer rating;
@@ -18,6 +18,7 @@ public class Bank {
         offices = new ArrayList<>();
         employees = new ArrayList<>();
         clients = new ArrayList<>();
+        ATMs = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -29,14 +30,14 @@ public class Bank {
     public ArrayList<BankOffice> getOffices() {
         return offices;
     }
-    public Integer getATMs() {
+    public ArrayList<BankAtm> getATMs() {
         return ATMs;
     }
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
-    public Integer getClientCount() {
-        return clientCount;
+    public ArrayList<User> getClients() {
+        return clients;
     }
     public Integer getRating() {
         return rating;
@@ -54,17 +55,17 @@ public class Bank {
     public void setName(String name) {
         this.name = name;
     }
-    public void setOfficeCount(Integer officeCount) {
-        this.officeCount = officeCount;
+    public void setOffices(ArrayList<BankOffice> offices) {
+        this.offices = offices;
     }
-    public void setATMs(Integer ATMs) {
+    public void setATMs(ArrayList<BankAtm> ATMs) {
         this.ATMs = ATMs;
     }
-    public void setEmployeeCount(Integer employeeCount) {
-        this.employeeCount = employeeCount;
+    public void setEmployees(ArrayList<Employee> employees) {
+        this.employees = employees;
     }
-    public void setClientCount(Integer clientCount) {
-        this.clientCount = clientCount;
+    public void setClients(ArrayList<User> clients) {
+        this.clients = clients;
     }
     public void setRating(Integer rating) {
         this.rating = rating;
@@ -78,7 +79,7 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank " + name + ".\n Has " + ATMs + " ATMs, " + employeeCount + " employees and " + clientCount + " clients.\n " +
+        return "Bank " + name + ".\n Has " + ATMs + " ATMs, " + ATMs.size() + " employees and " + clients.size() + " clients.\n " +
                 "Current funds: " + funds + "\n\n";
     }
 }

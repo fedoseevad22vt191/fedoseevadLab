@@ -12,6 +12,8 @@ public interface AtmService {
     public BankAtm create(BankAtm atm);
     // read
     public BankAtm read();
+    // set
+    public void set(BankAtm atm);
     // delete
     public void delete(BankAtm atm);
 

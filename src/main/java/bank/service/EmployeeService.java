@@ -14,6 +14,8 @@ public interface EmployeeService {
     public Employee create(Employee employee);
     // read
     public Employee read();
+    // set
+    public void set(Employee employee);
     // delete
     public void delete(Employee employee);
 

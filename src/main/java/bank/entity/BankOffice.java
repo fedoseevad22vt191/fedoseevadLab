@@ -2,13 +2,15 @@ package bank.entity;
 import bank.entity.enums.officeStatus;
 import bank.service.BankOfficeService;
 
-public class BankOffice{
+import java.util.ArrayList;
+
+public class BankOffice {
     String name;
     Integer id;
     String address;
     officeStatus status = officeStatus.working;
     boolean hasSpaceForAtm;
-    Integer atmCount = 0;
+    ArrayList<BankAtm> ATMs;
     boolean givesLoans;
     boolean givesCash;
     boolean receivesCash;
@@ -17,6 +19,7 @@ public class BankOffice{
 
     public BankOffice(String officeName, Integer officeID) {
         this.name = officeName; this.id = officeID;
+        ATMs = new ArrayList<>();
     }
 
     public String getName() {
@@ -40,18 +43,18 @@ public class BankOffice{
         this.address = address;
     }
 
-    public Integer getAtmCount() {
-        return atmCount;
+    public ArrayList<BankAtm> getAtms() {
+        return ATMs;
     }
-    public void setAtmCount(Integer atmCount) {
-        this.atmCount = atmCount;
+    public void setAtms(ArrayList<BankAtm> atms) {
+        this.ATMs = atms;
     }
 
     public officeStatus getStatus() {
         return status;
     }
-    public void setStatus(officeStatus newstatus) {
-        status = newstatus;
+    public void setStatus(officeStatus newStatus) {
+        status = newStatus;
     }
 
     public boolean hasSpaceForAtm() {

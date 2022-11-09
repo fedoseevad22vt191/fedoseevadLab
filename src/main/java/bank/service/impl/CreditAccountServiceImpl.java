@@ -10,10 +10,12 @@ import java.util.Date;
 
 public class CreditAccountServiceImpl implements CreditAccountService {
 
+    CreditAccount creditAcc = null;
     // create
     public CreditAccount create(Integer creditAccID, Date startDate, Integer months, Integer loanValue, User user, Employee employee, Bank bank) {
         CreditAccount crAcc = new CreditAccount(creditAccID, startDate, months, loanValue);
         crAcc.setCreditUser(user); crAcc.setEmployee(employee); crAcc.setBankName(bank.getName()); // <---- связь с банком и юзером
+        this.creditAcc = crAcc;
         return crAcc;
     }
     // create-through-copy
@@ -24,6 +26,12 @@ public class CreditAccountServiceImpl implements CreditAccountService {
     public CreditAccount read(){
         return this.creditAcc;
     }
+
+    // set
+    public void set(CreditAccount creditAcc) {
+        this.creditAcc = creditAcc;
+    }
+
     // delete
     public void delete(CreditAccount creditAcc) {
         if (this.creditAcc == creditAcc)
