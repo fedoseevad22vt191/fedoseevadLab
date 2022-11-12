@@ -15,6 +15,9 @@ public class User {
 
     public User(String userName, Integer userID, Date userDOB) {
         this.name = userName; this.id = userID; this.DOB = userDOB;
+        banks = new ArrayList<>();
+        creditAccs = new ArrayList<>();
+        paymentAccs = new ArrayList<>();
     }
 
     public Integer getId() {
