@@ -3,6 +3,7 @@ package bank.service.impl;
 import bank.entity.*;
 import bank.service.UserService;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.random.RandomGenerator;
@@ -80,5 +81,20 @@ public class UserServiceImpl implements UserService {
         ArrayList<PaymentAccount> list = user.getPaymentAccs();
         if (!list.remove(paymentAccount)) System.out.println("Item not found!");
         else user.setPaymentAccs(list);
+    }
+
+    public String UserInfo(User client) {
+        ArrayList<PaymentAccount> paymentAccounts = client.getPaymentAccs();
+        ArrayList<CreditAccount> creditAccounts = client.getCreditAccs();
+
+        String info = "Payment accounts: \n";
+        for (PaymentAccount acc: paymentAccounts) {
+            info += "\t PayAcc" + acc.getId() + ", funds: " + acc.getPaymentAccountFunds() + "\n";
+        }
+        info += "Credit accounts: \n";
+        for (CreditAccount acc: creditAccounts) {
+            info += "\t PayAcc" + acc.getId() + ", loan: " + acc.getLoanValue() + "monthly: " + acc.getMonthlyPayment() + "\n";
+        }
+        return info;
     }
 }

@@ -61,7 +61,9 @@ public class BankServiceImpl implements BankService {
     @Override
     public void addClient(Bank bank, User client) {
         ArrayList<User> list = bank.getClients();
-        client.setBanks(bank);
+        ArrayList<Bank> banks = client.getBanks();
+        if (!banks.contains(bank)) banks.add(bank);
+        client.setBanks(banks);
         list.add(client);
         bank.setClients(list);
     }
@@ -90,5 +92,30 @@ public class BankServiceImpl implements BankService {
         ArrayList<User> list = bank.getClients();
         if (!list.remove(client)) System.out.println("Item not found!");
         else bank.setClients(list);
+    }
+
+
+    public String BankInfo(Bank bank) {
+        ArrayList<BankAtm> atms = bank.getATMs();
+        ArrayList<BankOffice> offices = bank.getOffices();
+        ArrayList<Employee> employees = bank.getEmployees();
+        ArrayList<User> clients = bank.getClients();
+        String Info = "Bank " + bank.getName() + "\nOffices: \n";
+        for (BankOffice office: offices) {
+            Info += "\t" + office.getName() + "(" + office.getAddress() + ")\n";
+        }
+        Info += "ATMs: \n";
+        for (BankAtm atm: atms) {
+            Info += "\t" + atm.getName() + "(" + atm.getAddress() + ")\n";
+        }
+        Info += "Employees: \n";
+        for (Employee emp: employees) {
+            Info += "\t" + emp.getName() + ", " + emp.getPosition() + "\n";
+        }
+        Info += "Clients: \n";
+        for (User client: clients) {
+            Info += "\t" + client.getName() + ", DOB: " + client.getDOB() + "\n";
+        }
+        return Info;
     }
 }

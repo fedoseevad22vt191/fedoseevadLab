@@ -3,8 +3,7 @@ package bank;
 import bank.entity.*;
 import bank.service.impl.*;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /*
     Q: геттеры и сеттеры паблик?
@@ -35,22 +34,35 @@ public class Main {
         PaymentAccountServiceImpl paymentAccountService = new PaymentAccountServiceImpl();
         UserServiceImpl userService = new UserServiceImpl();
 
-        Список банков - и погнали создавать
+        List<String> names = Arrays.asList("Sberbank", "VTB", "Privatbank", "Tinkoff", "Alphabank");
+        // Список банков - и погнали создавать
+        ArrayList<Bank> banks = new ArrayList<>();
 
-        Bank bank = bankService.create("Sberbank", 0001);
-        BankOffice office = bankOfficeService.create("Kostyukova", 0001);
-        BankAtm atm = atmService.create("ATM01", 0001, bank, office);
-        Employee employee = employeeService.create("Fedorova Viktoriya", 0001, emp1dob, bank, office);
-        User user = userService.create("Ivanov Ivan", 0001, user1dob, bank);
-        CreditAccount crAcc = creditAccountService.create(0001, startDate, 6, 50000, user, employee, bank);
-        PaymentAccount payAcc = paymentAccountService.create(0001, user, bank);
+        int ct = 0;
+        for (String name: names) {
+            Bank bank = bankService.create(name, ++ct);
+            for (int i = 0; i<3; i++) {
+                BankOffice office = bankOfficeService.create("address" + i+1, i+1, bank);
+                bankService.addOffice(bankService.read(), office);
+                BankAtm atm = atmService.create("ATM" + i+1, i+1, bank, office);
+                bankOfficeService.addATM(bankOfficeService.read(), atm);
+                bankService.addATM(bankService.read(), atm);
+                for (int j = 0; j<5; j++) {
+                    Employee employee = employeeService.create("name"+j+1, j+1, emp1dob, bank, office);
+                    bankService.addEmployee(bankService.read(), employee);
+                    User client = userService.create("clientName"+j+1, j+1, user1dob, bank);
+                    bankService.addClient(bankService.read(), client);
+                    for (int z = 0; z<2; z++) {
+                        CreditAccount crAcc = creditAccountService.create(z+1, startDate, 6, 50000, client, employee, bank);
+                        PaymentAccount payAcc = paymentAccountService.create(z+1, client, bank);
+                    }
+                }
+            }
+            banks.add(bank);
+        }
 
-        System.out.print(bank);
-        System.out.print(office);
-        System.out.print(atm);
-        System.out.print(employee);
-        System.out.print(user);
-        System.out.print(crAcc);
-        System.out.print(payAcc);
+        for(Bank bank : banks) {
+            System.out.println(bankService.BankInfo(bank));
+        }
     }
 }
