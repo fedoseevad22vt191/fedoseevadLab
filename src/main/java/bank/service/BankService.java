@@ -24,4 +24,6 @@ public interface BankService {
     public void removeATM(Bank bank, BankAtm atm);
     public void removeEmployee(Bank bank, Employee employee);
     public void removeClient(Bank bank, User client);
+
+    public String BankInfo(Bank bank);
 }

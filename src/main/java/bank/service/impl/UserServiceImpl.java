@@ -1,11 +1,14 @@
 package bank.service.impl;
 
 import bank.entity.*;
+import bank.entity.enums.officeStatus;
+import bank.service.PaymentAccountService;
 import bank.service.UserService;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.random.RandomGenerator;
 
 public class UserServiceImpl implements UserService {
@@ -49,6 +52,7 @@ public class UserServiceImpl implements UserService {
     public void changeIncome(User user, Integer income) {
         user.setMonthlyIncome(income);
     }
+    public void changeRating(User user, Integer addRating) { user.setLoanRating(user.getLoanRating() + addRating);}
 
     public void addBank(User user, Bank bank) {
         ArrayList<Bank> banks = user.getBanks();
@@ -88,13 +92,76 @@ public class UserServiceImpl implements UserService {
         ArrayList<CreditAccount> creditAccounts = client.getCreditAccs();
 
         String info = "Payment accounts: \n";
-        for (PaymentAccount acc: paymentAccounts) {
+        for (PaymentAccount acc : paymentAccounts) {
             info += "\t PayAcc" + acc.getId() + ", funds: " + acc.getPaymentAccountFunds() + "\n";
         }
         info += "Credit accounts: \n";
-        for (CreditAccount acc: creditAccounts) {
+        for (CreditAccount acc : creditAccounts) {
             info += "\t PayAcc" + acc.getId() + ", loan: " + acc.getLoanValue() + "monthly: " + acc.getMonthlyPayment() + "\n";
         }
         return info;
+    }
+
+    public void openCredit(User user, Integer amount, ArrayList<Bank> banks) {
+        Bank pickedBank = null;
+        int sumEntities = 0; int lowRate = 10; int lowestRate = 50;
+        for (Bank bank: banks) {
+            if (bank.getATMs().size() + bank.getOffices().size() + bank.getEmployees().size() > sumEntities && bank.getIntRate()<=lowRate) {
+                if (bank.getIntRate() < lowestRate) {
+                    lowestRate = bank.getIntRate();
+                    pickedBank = bank;
+                }
+            }
+            // TODO: exception - no bank is good option
+        }
+        ArrayList<BankOffice> offices = pickedBank.getOffices();
+        BankOffice pickedOffice = null;
+        for (BankOffice office: offices) {
+            if (office.getStatus() == officeStatus.working && office.givesLoans() && office.givesCash())
+                pickedOffice = office;
+            // TODO: exception - no office is good option
+        }
+        ArrayList<Employee> employees = pickedBank.getEmployees();
+        Employee pickedEmployee = null;
+        for (Employee emp: employees) {
+            if (emp.isGivesLoans())
+                pickedEmployee = emp;
+            // TODO: exception - no employee is good option
+        }
+        ArrayList<PaymentAccount> payAccs = user.getPaymentAccs();
+        PaymentAccount pickedPayAcc = null;
+        ArrayList<CreditAccount> credAccs = user.getCreditAccs();
+        CreditAccount pickedCredAcc = null;
+        for (PaymentAccount pAcc: payAccs) {
+            if (pAcc.getBank() == pickedBank)
+                pickedPayAcc = pAcc;
+        }
+        if (pickedPayAcc == null) {
+            PaymentAccountService PAS = new PaymentAccountServiceImpl();
+            pickedPayAcc = PAS.create(1, user, pickedBank);
+        }
+
+        for (CreditAccount cAcc: credAccs) {
+            if (Objects.equals(cAcc.getBankName(), pickedBank.getName()))
+                pickedCredAcc = cAcc;
+        }
+        if (pickedCredAcc == null) {
+            CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
+            pickedCredAcc = creditAccountService.create(1, new Date(), 12, amount, user, pickedEmployee, pickedBank);
+        }
+
+        if (!(user.getLoanRating() / pickedBank.getRating() < 10) ) {
+            ArrayList<BankAtm> ATMs = pickedOffice.getAtms();
+            BankAtm pickedATM = null;
+            for (BankAtm atm : ATMs) {
+                if (atm.getFunds() >= amount)
+                    pickedATM = atm;
+            }
+            if (pickedATM == null)
+                // TODO: exception go to other office
+        }
+        else {
+            //TODO: exception rating is low af ur cringe xBBBB
+        }
     }
 }
