@@ -1,6 +1,7 @@
 package bank.service;
 
 import bank.entity.*;
+import bank.utils.CreditException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,5 +32,5 @@ public interface UserService {
 
     public String UserInfo(User client);
 
-    public void openCredit(User user, Integer amount, ArrayList<Bank> banks);
+    public void openCredit(User user, Integer amount, ArrayList<Bank> banks) throws CreditException;
 }

@@ -4,8 +4,8 @@ import bank.entity.*;
 import bank.entity.enums.officeStatus;
 import bank.service.PaymentAccountService;
 import bank.service.UserService;
+import bank.utils.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
         return info;
     }
 
-    public void openCredit(User user, Integer amount, ArrayList<Bank> banks) {
+    public void openCredit(User user, Integer amount, ArrayList<Bank> banks) throws CreditException {
         Bank pickedBank = null;
         int sumEntities = 0; int lowRate = 10; int lowestRate = 50;
         for (Bank bank: banks) {
@@ -112,21 +112,21 @@ public class UserServiceImpl implements UserService {
                     pickedBank = bank;
                 }
             }
-            // TODO: exception - no bank is good option
+            if (pickedBank == null) throw new NoBankException();
         }
         ArrayList<BankOffice> offices = pickedBank.getOffices();
         BankOffice pickedOffice = null;
         for (BankOffice office: offices) {
             if (office.getStatus() == officeStatus.working && office.givesLoans() && office.givesCash())
                 pickedOffice = office;
-            // TODO: exception - no office is good option
+            if (pickedOffice == null) throw new NoOfficeException();
         }
         ArrayList<Employee> employees = pickedBank.getEmployees();
         Employee pickedEmployee = null;
         for (Employee emp: employees) {
             if (emp.isGivesLoans())
                 pickedEmployee = emp;
-            // TODO: exception - no employee is good option
+            if (pickedEmployee == null) throw new NoEmployeeException();
         }
         ArrayList<PaymentAccount> payAccs = user.getPaymentAccs();
         PaymentAccount pickedPayAcc = null;
@@ -139,6 +139,8 @@ public class UserServiceImpl implements UserService {
         if (pickedPayAcc == null) {
             PaymentAccountService PAS = new PaymentAccountServiceImpl();
             pickedPayAcc = PAS.create(1, user, pickedBank);
+            payAccs.add(pickedPayAcc);
+            user.setPaymentAccs(payAccs);
         }
 
         for (CreditAccount cAcc: credAccs) {
@@ -148,6 +150,8 @@ public class UserServiceImpl implements UserService {
         if (pickedCredAcc == null) {
             CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
             pickedCredAcc = creditAccountService.create(1, new Date(), 12, amount, user, pickedEmployee, pickedBank);
+            credAccs.add(pickedCredAcc);
+            user.setCreditAccs(credAccs);
         }
 
         if (!(user.getLoanRating() / pickedBank.getRating() < 10) ) {
@@ -158,10 +162,10 @@ public class UserServiceImpl implements UserService {
                     pickedATM = atm;
             }
             if (pickedATM == null)
-                // TODO: exception go to other office
+                throw new NoOfficeFundsException();
         }
         else {
-            //TODO: exception rating is low af ur cringe xBBBB
+            throw new LowRatingException();
         }
     }
 }

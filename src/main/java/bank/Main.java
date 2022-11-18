@@ -37,32 +37,36 @@ public class Main {
         List<String> names = Arrays.asList("Sberbank", "VTB", "Privatbank", "Tinkoff", "Alphabank");
         // Список банков - и погнали создавать
         ArrayList<Bank> banks = new ArrayList<>();
-
-        int ct = 0;
-        for (String name: names) {
-            Bank bank = bankService.create(name, ++ct);
-            for (int i = 0; i<3; i++) {
-                BankOffice office = bankOfficeService.create("address" + i+1, i+1, bank);
-                bankService.addOffice(bankService.read(), office);
-                BankAtm atm = atmService.create("ATM" + i+1, i+1, bank, office);
-                bankOfficeService.addATM(bankOfficeService.read(), atm);
-                bankService.addATM(bankService.read(), atm);
-                for (int j = 0; j<5; j++) {
-                    Employee employee = employeeService.create("name"+j+1, j+1, emp1dob, bank, office);
-                    bankService.addEmployee(bankService.read(), employee);
-                    User client = userService.create("clientName"+j+1, j+1, user1dob, bank);
-                    bankService.addClient(bankService.read(), client);
-                    for (int z = 0; z<2; z++) {
-                        CreditAccount crAcc = creditAccountService.create(z+1, startDate, 6, 50000, client, employee, bank);
-                        PaymentAccount payAcc = paymentAccountService.create(z+1, client, bank);
+        try {
+            int ct = 0;
+            for (String name : names) {
+                Bank bank = bankService.create(name, ++ct);
+                for (int i = 0; i < 3; i++) {
+                    BankOffice office = bankOfficeService.create("address" + i + 1, i + 1, bank);
+                    bankService.addOffice(bankService.read(), office);
+                    BankAtm atm = atmService.create("ATM" + i + 1, i + 1, bank, office);
+                    bankOfficeService.addATM(bankOfficeService.read(), atm);
+                    bankService.addATM(bankService.read(), atm);
+                    for (int j = 0; j < 5; j++) {
+                        Employee employee = employeeService.create("name" + j + 1, j + 1, emp1dob, bank, office);
+                        bankService.addEmployee(bankService.read(), employee);
+                        User client = userService.create("clientName" + j + 1, j + 1, user1dob, bank);
+                        bankService.addClient(bankService.read(), client);
+                        for (int z = 0; z < 2; z++) {
+                            CreditAccount crAcc = creditAccountService.create(z + 1, startDate, 6, 50000, client, employee, bank);
+                            PaymentAccount payAcc = paymentAccountService.create(z + 1, client, bank);
+                        }
                     }
                 }
+                banks.add(bank);
             }
-            banks.add(bank);
-        }
 
-        for(Bank bank : banks) {
-            System.out.println(bankService.BankInfo(bank));
+            for (Bank bank : banks) {
+                System.out.println(bankService.BankInfo(bank));
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
