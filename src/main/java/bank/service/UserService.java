@@ -3,6 +3,8 @@ package bank.service;
 import bank.entity.*;
 import bank.utils.CreditException;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,4 +35,7 @@ public interface UserService {
     public String UserInfo(User client);
 
     public void openCredit(User user, Integer amount, ArrayList<Bank> banks) throws CreditException;
+
+    public String exportAccounts(User user, String bankName) throws IOException;
+    public String importAccounts(User user, Bank bank, File file) throws IOException;
 }

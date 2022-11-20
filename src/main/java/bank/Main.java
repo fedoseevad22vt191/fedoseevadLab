@@ -3,6 +3,7 @@ package bank;
 import bank.entity.*;
 import bank.service.impl.*;
 
+import java.io.IOException;
 import java.util.*;
 
 /*
@@ -64,6 +65,9 @@ public class Main {
             for (Bank bank : banks) {
                 System.out.println(bankService.BankInfo(bank));
             }
+        }
+        catch (IOException e) {
+            System.out.println("Smth wrong with file creation\n");
         }
         catch(Exception e) {
             System.out.println(e.getMessage());

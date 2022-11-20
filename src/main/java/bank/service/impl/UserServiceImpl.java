@@ -2,10 +2,12 @@ package bank.service.impl;
 
 import bank.entity.*;
 import bank.entity.enums.officeStatus;
+import bank.service.BankService;
 import bank.service.PaymentAccountService;
 import bank.service.UserService;
 import bank.utils.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -167,5 +169,79 @@ public class UserServiceImpl implements UserService {
         else {
             throw new LowRatingException();
         }
+    }
+
+    public String exportAccounts(User user, String bankName) throws IOException {
+        ArrayList<PaymentAccount> pAccs = user.getPaymentAccs();
+        ArrayList<CreditAccount> cAccs = user.getCreditAccs();
+        int accountCount = 0;
+
+        FileWriter FW = new FileWriter(new java.util.Date() + "_" + user.getId() + user.getName() + "_" + bankName);
+        for (PaymentAccount acc: pAccs) {
+            if (bankName.equals(acc.getBank().getName())) {
+                accountCount++;
+                FW.write("p" + acc.getId() + "_" + acc.getPaymentAccountFunds() + "\n");
+            }
+        }
+        if (accountCount == 0) return "No accounts found";
+        for (CreditAccount acc: cAccs) {
+            if (bankName.equals(acc.getBankName())) {
+                accountCount++;
+                FW.write("c" + acc.getId() + "_" + acc.getLoanValue() + "_" + acc.getMonthlyPayment() + "_" + acc.getStartDate() + "_" + acc.getMonths() + "\n");
+            }
+        }
+        FW.close();
+
+        return accountCount + " accounts exported";
+    }
+
+    public String importAccounts(User user, Bank bank, File file) throws IOException {
+        //FW.write("p" + acc.getId() + "_" + acc.getPaymentAccountFunds() + "\n");
+        //FW.write("c" + acc.getId() + "_" + acc.getLoanValue() + "_" + acc.getMonthlyPayment() + "_" + acc.getStartDate() + "_" + acc.getMonths() + "\n");
+        ArrayList<User> clients = bank.getClients();
+        ArrayList<PaymentAccount> pAccs = user.getPaymentAccs();
+        ArrayList<CreditAccount> cAccs = user.getCreditAccs();
+
+        User accountOwner = null;
+        for (User client: clients) {
+            if (client == user)
+                accountOwner = client;
+        }
+        if (accountOwner == null) {
+            BankService BS = new BankServiceImpl();
+            BS.addClient(bank, user);
+            accountOwner = user;
+        }
+        int accountCount = 0;
+        FileReader FR = new FileReader(file);
+        BufferedReader BR = new BufferedReader(FR);
+        String line = BR.readLine();
+        while (line != null) {
+            String line2 = line.substring(1);
+            String[] account = line2.split("_");
+
+            if (line.startsWith("p")) {
+                for (PaymentAccount acc: pAccs) {
+                    if (account[0].equals(acc.getId().toString()) && account[1].equals(acc.getPaymentAccountFunds().toString())) {
+                        acc.setBank(bank);
+                        accountCount++;
+                    }
+                }
+            }
+            else if (line.startsWith("c")) {
+                for (CreditAccount acc: cAccs) {
+                    if (account[0].equals(acc.getId().toString()) && account[1].equals(acc.getLoanValue().toString()) && account[2].equals(acc.getMonthlyPayment().toString())) {
+                        acc.setBankName(bank.getName());
+                        accountCount++;
+                    }
+                }
+            }
+            else throw new IOException("file corrupted!");
+            line = BR.readLine();
+        }
+        BR.close();
+        FR.close();
+
+        return accountCount + " accounts imported";
     }
 }
