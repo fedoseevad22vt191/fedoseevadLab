@@ -15,6 +15,7 @@ public class Employee {
 
     public Employee(String employeeName, Integer employeeID, LocalDate employeeDOB) {
         this.name = employeeName; this.id = employeeID; this.DOB = employeeDOB;
+        this.givesLoans = true;
         this.position = "universal worker";
     }
 

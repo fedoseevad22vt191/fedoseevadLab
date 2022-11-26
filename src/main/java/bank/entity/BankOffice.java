@@ -10,15 +10,24 @@ public class BankOffice {
     officeStatus status = officeStatus.WORKING;
     boolean hasSpaceForAtm;
     ArrayList<BankAtm> ATMs;
+    Bank bank;
     boolean givesLoans;
     boolean givesCash;
     boolean receivesCash;
     Integer funds;
     Integer rentCost;
 
-    public BankOffice(String officeName, Integer officeID, String address) {
+    public BankOffice(String officeName, Integer officeID, String address, Bank bank) {
         this.name = officeName; this.id = officeID; this.address = address;
+        this.givesCash = true; this.givesLoans = true; this.bank = bank;
         ATMs = new ArrayList<>();
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     public String getName() {

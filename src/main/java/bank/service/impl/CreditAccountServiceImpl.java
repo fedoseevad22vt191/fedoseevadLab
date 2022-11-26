@@ -40,6 +40,7 @@ public class CreditAccountServiceImpl implements CreditAccountService {
 
     // updates
     public void removeLoan(CreditAccount creditAcc, Integer sum) {
-        creditAcc.setLoanValue(creditAcc.getLoanValue() - sum);
+        if (creditAcc.getLoanValue() < sum) creditAcc.setLoanValue(0);
+        else creditAcc.setLoanValue(creditAcc.getLoanValue() - sum);
     }
 }

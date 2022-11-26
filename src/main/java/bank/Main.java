@@ -47,7 +47,7 @@ public class Main {
                     BankOffice office = bankOfficeService.create("office" + (i + 1), i + 1, "address", bank);
                     bankService.addOffice(bankService.read(), office);
                     BankAtm atm = atmService.create("ATM" + (i + 1), i + 1, bank, office);
-                    bankOfficeService.addATM(bankOfficeService.read(), atm);
+                    bankOfficeService.addATM(bankOfficeService.read(), bank, atm);
                     bankService.addATM(bankService.read(), atm);
                     for (int j = 0; j < 5; j++) {
                         Employee employee = employeeService.create("name" + (j + 1), j + 1, emp1dob, bank, office);
@@ -62,10 +62,7 @@ public class Main {
                 }
                 banks.add(bank);
             }
-
-            for(Bank bank : banks) {
-                System.out.println(bank.toString());
-            }
+        userService.openCredit(userService.read(), 30000, banks);
         }
         catch(Exception e) {
             System.out.println(e.getMessage());
