@@ -61,10 +61,6 @@ public class Main {
                 }
                 banks.add(bank);
             }
-
-            for (Bank bank : banks) {
-                System.out.println(bankService.BankInfo(bank));
-            }
         }
         catch (IOException e) {
             System.out.println("Smth wrong with file creation\n");
