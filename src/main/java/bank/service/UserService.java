@@ -5,13 +5,13 @@ import bank.utils.CreditException;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public interface UserService {
 
     // create
-    public User create(String name, Integer id, Date DOB, Bank bank);
+    public User create(String name, Integer id, LocalDate DOB, Bank bank);
     // create-through-copy
     public User create(User user);
     // read
@@ -32,7 +32,7 @@ public interface UserService {
     public void addPaymentAccount(User user, PaymentAccount paymentAccount);
     public void removePaymentAccount(User user, PaymentAccount paymentAccount);
 
-    public String UserInfo(User client);
+    public String UserAccounts(User client);
 
     public void openCredit(User user, Integer amount, ArrayList<Bank> banks) throws CreditException;
 

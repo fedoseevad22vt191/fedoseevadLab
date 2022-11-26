@@ -5,8 +5,8 @@ public class CreditAccount{
     Integer id;
     User creditUser;
     String bankName;
-    Date startDate;
-    Date endDate;
+    LocalDate startDate;
+    LocalDate endDate;
     Integer months;
     Integer loanValue;
     Employee employee;
