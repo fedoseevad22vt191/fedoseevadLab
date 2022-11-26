@@ -1,11 +1,11 @@
 package bank.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Employee {
     Integer id;
     String name;
-    Date DOB;
+    LocalDate DOB;
     String position;
     Bank bank;
     boolean isRemote;
@@ -13,8 +13,9 @@ public class Employee {
     boolean givesLoans;
     Integer salary;
 
-    public Employee(String employeeName, Integer employeeID, Date employeeDOB) {
+    public Employee(String employeeName, Integer employeeID, LocalDate employeeDOB) {
         this.name = employeeName; this.id = employeeID; this.DOB = employeeDOB;
+        this.position = "universal worker";
     }
 
     public Integer getId() {
@@ -31,10 +32,10 @@ public class Employee {
         this.name = name;
     }
 
-    public Date getDOB() {
+    public LocalDate getDOB() {
         return DOB;
     }
-    public void setDOB(Date DOB) {
+    public void setDOB(LocalDate DOB) {
         this.DOB = DOB;
     }
 

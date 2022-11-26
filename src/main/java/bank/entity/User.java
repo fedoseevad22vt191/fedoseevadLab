@@ -1,11 +1,11 @@
 package bank.entity;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class User {
     Integer id;
     String name;
-    Date DOB;
+    LocalDate DOB;
     String work;
     Integer monthlyIncome;
     ArrayList<Bank> banks;
@@ -13,7 +13,7 @@ public class User {
     ArrayList<PaymentAccount> paymentAccs;
     Integer loanRating;
 
-    public User(String userName, Integer userID, Date userDOB) {
+    public User(String userName, Integer userID, LocalDate userDOB) {
         this.name = userName; this.id = userID; this.DOB = userDOB;
         banks = new ArrayList<>();
         creditAccs = new ArrayList<>();
@@ -34,10 +34,10 @@ public class User {
         this.name = name;
     }
 
-    public Date getDOB() {
+    public LocalDate getDOB() {
         return DOB;
     }
-    public void setDOB(Date DOB) {
+    public void setDOB(LocalDate DOB) {
         this.DOB = DOB;
     }
 
@@ -85,6 +85,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User " + name + "with income of " + monthlyIncome + "\n\n";
+        return "User " + name + " with income of " + monthlyIncome + "\n";
     }
 }

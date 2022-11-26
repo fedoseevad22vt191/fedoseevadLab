@@ -1,6 +1,5 @@
 package bank.entity;
 import bank.entity.enums.officeStatus;
-import bank.service.BankOfficeService;
 
 import java.util.ArrayList;
 
@@ -8,7 +7,7 @@ public class BankOffice {
     String name;
     Integer id;
     String address;
-    officeStatus status = officeStatus.working;
+    officeStatus status = officeStatus.WORKING;
     boolean hasSpaceForAtm;
     ArrayList<BankAtm> ATMs;
     boolean givesLoans;
@@ -17,8 +16,8 @@ public class BankOffice {
     Integer funds;
     Integer rentCost;
 
-    public BankOffice(String officeName, Integer officeID) {
-        this.name = officeName; this.id = officeID;
+    public BankOffice(String officeName, Integer officeID, String address) {
+        this.name = officeName; this.id = officeID; this.address = address;
         ATMs = new ArrayList<>();
     }
 
@@ -99,8 +98,12 @@ public class BankOffice {
     @Override
     public String toString() {
         String st = "Bank office " + name + " at " + address + '\n';
-        if (status == officeStatus.working) st += "Working right now.\n";
+        if (status == officeStatus.WORKING) st += "Working right now.\n";
         else st += "Currently closed.\n";
+        st += "ATMs: \n";
+        for (BankAtm atm: ATMs) {
+            st += "\t" + atm.toString();
+        }
         st += "Current funds: " + funds + "\n\n";
         return st;
     }

@@ -8,7 +8,7 @@ import bank.entity.enums.officeStatus;
 public interface BankOfficeService {
 
     // create
-    public BankOffice create(String name, Integer id, Bank bank);
+    public BankOffice create(String name, Integer id, String address, Bank bank);
     // create-through-copy
     public BankOffice create(BankOffice office);
     // read

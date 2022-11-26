@@ -6,8 +6,8 @@ import bank.service.PaymentAccountService;
 import bank.service.UserService;
 import bank.utils.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 import java.util.random.RandomGenerator;
 
@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     User user = null;
 
     // create
-    public User create(String name, Integer id, Date DOB, Bank bank) {
+    public User create(String name, Integer id, LocalDate DOB, Bank bank) {
         User user = new User(name, id, DOB);
         ArrayList<Bank> banks = user.getBanks();
         banks.add(bank);
@@ -87,16 +87,16 @@ public class UserServiceImpl implements UserService {
         else user.setPaymentAccs(list);
     }
 
-    public String UserInfo(User client) {
+    public String UserAccounts(User client) {
         ArrayList<PaymentAccount> paymentAccounts = client.getPaymentAccs();
         ArrayList<CreditAccount> creditAccounts = client.getCreditAccs();
 
         String info = "Payment accounts: \n";
-        for (PaymentAccount acc : paymentAccounts) {
+        for (PaymentAccount acc: paymentAccounts) {
             info += "\t PayAcc" + acc.getId() + ", funds: " + acc.getPaymentAccountFunds() + "\n";
         }
         info += "Credit accounts: \n";
-        for (CreditAccount acc : creditAccounts) {
+        for (CreditAccount acc: creditAccounts) {
             info += "\t PayAcc" + acc.getId() + ", loan: " + acc.getLoanValue() + "monthly: " + acc.getMonthlyPayment() + "\n";
         }
         return info;
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
         ArrayList<BankOffice> offices = pickedBank.getOffices();
         BankOffice pickedOffice = null;
         for (BankOffice office: offices) {
-            if (office.getStatus() == officeStatus.working && office.givesLoans() && office.givesCash())
+            if (office.getStatus() == officeStatus.WORKING && office.givesLoans() && office.givesCash())
                 pickedOffice = office;
             if (pickedOffice == null) throw new NoOfficeException();
         }
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
         }
         if (pickedCredAcc == null) {
             CreditAccountServiceImpl creditAccountService = new CreditAccountServiceImpl();
-            pickedCredAcc = creditAccountService.create(1, new Date(), 12, amount, user, pickedEmployee, pickedBank);
+            pickedCredAcc = creditAccountService.create(1, LocalDate.now(), 12, amount, user, pickedEmployee, pickedBank);
             credAccs.add(pickedCredAcc);
             user.setCreditAccs(credAccs);
         }

@@ -5,12 +5,12 @@ import bank.entity.CreditAccount;
 import bank.entity.Employee;
 import bank.entity.User;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface CreditAccountService {
 
     // create
-    public CreditAccount create(Integer creditAccID, Date startDate, Integer months, Integer loanValue, User user, Employee employee, Bank bank);
+    public CreditAccount create(Integer creditAccID, LocalDate startDate, Integer months, Integer loanValue, User user, Employee employee, Bank bank);
     // create-through-copy
     public CreditAccount create(CreditAccount creditAcc);
     // read

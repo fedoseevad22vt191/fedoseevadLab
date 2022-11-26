@@ -5,14 +5,14 @@ import bank.entity.BankOffice;
 import bank.entity.Employee;
 import bank.service.EmployeeService;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
     Employee employee = null;
 
     // create
-    public Employee create(String name, Integer id, Date DOB, Bank bank, BankOffice bankOffice) {
+    public Employee create(String name, Integer id, LocalDate DOB, Bank bank, BankOffice bankOffice) {
         Employee employee = new Employee(name,id, DOB);
         employee.setBank(bank); employee.setOffice(bankOffice);
         this.employee = employee;

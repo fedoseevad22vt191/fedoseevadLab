@@ -3,6 +3,7 @@ package bank;
 import bank.entity.*;
 import bank.service.impl.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /*
@@ -22,9 +23,10 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         // this is an entry point
-        Date startDate = new Date(112, Calendar.JUNE,20);
-        Date user1dob = new Date(92, Calendar.MARCH,7);
-        Date emp1dob = new Date(92, Calendar.MARCH,7);
+
+        LocalDate startDate = LocalDate.now();
+        LocalDate user1dob = LocalDate.of(1992, 3,7);
+        LocalDate emp1dob = LocalDate.of(1992, 3,7);
 
         AtmServiceImpl atmService = new AtmServiceImpl();
         BankServiceImpl bankService = new BankServiceImpl();
@@ -42,15 +44,15 @@ public class Main {
             for (String name : names) {
                 Bank bank = bankService.create(name, ++ct);
                 for (int i = 0; i < 3; i++) {
-                    BankOffice office = bankOfficeService.create("address" + i + 1, i + 1, bank);
+                    BankOffice office = bankOfficeService.create("office" + (i + 1), i + 1, "address", bank);
                     bankService.addOffice(bankService.read(), office);
-                    BankAtm atm = atmService.create("ATM" + i + 1, i + 1, bank, office);
+                    BankAtm atm = atmService.create("ATM" + (i + 1), i + 1, bank, office);
                     bankOfficeService.addATM(bankOfficeService.read(), atm);
                     bankService.addATM(bankService.read(), atm);
                     for (int j = 0; j < 5; j++) {
-                        Employee employee = employeeService.create("name" + j + 1, j + 1, emp1dob, bank, office);
+                        Employee employee = employeeService.create("name" + (j + 1), j + 1, emp1dob, bank, office);
                         bankService.addEmployee(bankService.read(), employee);
-                        User client = userService.create("clientName" + j + 1, j + 1, user1dob, bank);
+                        User client = userService.create("clientName" + (j + 1), j + 1, user1dob, bank);
                         bankService.addClient(bankService.read(), client);
                         for (int z = 0; z < 2; z++) {
                             CreditAccount crAcc = creditAccountService.create(z + 1, startDate, 6, 50000, client, employee, bank);
@@ -61,8 +63,8 @@ public class Main {
                 banks.add(bank);
             }
 
-            for (Bank bank : banks) {
-                System.out.println(bankService.BankInfo(bank));
+            for(Bank bank : banks) {
+                System.out.println(bank.toString());
             }
         }
         catch(Exception e) {
