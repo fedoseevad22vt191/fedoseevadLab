@@ -5,7 +5,7 @@ public class BankAtm {
     Integer id;
     String name;
     String address;
-    atmStatus status = atmStatus.working;
+    atmStatus status = atmStatus.WORKING;
     Bank bank;
     BankOffice office;
     Employee maintenancePerson;
@@ -98,6 +98,6 @@ public class BankAtm {
     @Override
     public String toString() {
         return "ATM " + id + " in office " + office.getName() + ", " + office.getAddress() + "\n" + status +
-        ", Maintenance person: " + maintenancePerson + "\n" + "Current funds: " + funds + "\n\n";
+        /*", Maintenance person: " + maintenancePerson + "\n" + */", Current funds: " + funds + "\n\n";
     }
 }

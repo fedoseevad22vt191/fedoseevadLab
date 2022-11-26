@@ -3,9 +3,8 @@ package bank.service.impl;
 import bank.entity.*;
 import bank.service.UserService;
 
-import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.random.RandomGenerator;
 
 public class UserServiceImpl implements UserService {
@@ -13,7 +12,7 @@ public class UserServiceImpl implements UserService {
     User user = null;
 
     // create
-    public User create(String name, Integer id, Date DOB, Bank bank) {
+    public User create(String name, Integer id, LocalDate DOB, Bank bank) {
         User user = new User(name, id, DOB);
         ArrayList<Bank> banks = user.getBanks();
         banks.add(bank);
@@ -83,7 +82,7 @@ public class UserServiceImpl implements UserService {
         else user.setPaymentAccs(list);
     }
 
-    public String UserInfo(User client) {
+    public String UserAccounts(User client) {
         ArrayList<PaymentAccount> paymentAccounts = client.getPaymentAccs();
         ArrayList<CreditAccount> creditAccounts = client.getCreditAccs();
 

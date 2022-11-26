@@ -13,15 +13,15 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     BankOffice office = null;
 
     // create
-    public BankOffice create(String name, Integer id, Bank bank) {
-        BankOffice office = new BankOffice(name, id);
+    public BankOffice create(String name, Integer id, String address, Bank bank) {
+        BankOffice office = new BankOffice(name, id, address);
         office.setFunds(bank.getFunds() /100);
         this.office = office;
         return office;
     }
     // create-through-copy
     public BankOffice create(BankOffice office) {
-        return new BankOffice(office.getName(), office.getId()); //, office.getBank());
+        return new BankOffice(office.getName(), office.getId(), office.getAddress()); //, office.getBank());
     }
     // read
     public BankOffice read() {
