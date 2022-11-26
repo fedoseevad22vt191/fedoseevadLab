@@ -85,6 +85,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User " + name + "with income of " + monthlyIncome + "\n\n";
+        return "User " + name + " with income of " + monthlyIncome + "\n";
     }
 }

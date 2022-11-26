@@ -1,5 +1,5 @@
 package bank.entity;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CreditAccount{
     Integer id;
@@ -12,11 +12,11 @@ public class CreditAccount{
     Employee employee;
     Integer monthlyPayment;
 
-    // TODO: тут всё поломается, если прибавив месяцы мы выйдем на следующий год
-    public CreditAccount(Integer creditAccID, Date startDate, Integer months, Integer loanValue) {
+    public CreditAccount(Integer creditAccID, LocalDate startDate, Integer months, Integer loanValue) {
         this.id = creditAccID;
         this.startDate = startDate; this.months = months;
-        this.endDate = new Date(startDate.getYear(), startDate.getMonth()+months, startDate.getDay());
+        this.endDate = startDate;
+        endDate = endDate.plusMonths(months);
         this.loanValue = loanValue;
         this.monthlyPayment = loanValue/months;
     }
@@ -42,17 +42,17 @@ public class CreditAccount{
         this.bankName = bankName;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

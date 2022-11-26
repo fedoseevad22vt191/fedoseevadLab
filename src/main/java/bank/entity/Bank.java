@@ -79,7 +79,17 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank " + name + ".\n Has " + ATMs + " ATMs, " + ATMs.size() + " employees and " + clients.size() + " clients.\n " +
-                "Current funds: " + funds + "\n\n";
+        String Info = "Bank " + getName() + "\nOffices: \n";
+        for (BankOffice office: offices)
+            Info += "\t" + office.toString();
+        Info += "Employees: \n";
+        for (Employee emp: employees) {
+            Info += "\t" + emp.toString();
+        }
+        Info += "Clients: \n";
+        for (User client: clients) {
+            Info += "\t" + client.toString();
+        }
+        return Info;
     }
 }

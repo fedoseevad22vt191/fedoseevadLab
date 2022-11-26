@@ -95,11 +95,11 @@ public class UserServiceImpl implements UserService {
         ArrayList<CreditAccount> creditAccounts = client.getCreditAccs();
 
         String info = "Payment accounts: \n";
-        for (PaymentAccount acc: paymentAccounts) {
+        for (PaymentAccount acc : paymentAccounts) {
             info += "\t PayAcc" + acc.getId() + ", funds: " + acc.getPaymentAccountFunds() + "\n";
         }
         info += "Credit accounts: \n";
-        for (CreditAccount acc: creditAccounts) {
+        for (CreditAccount acc : creditAccounts) {
             info += "\t PayAcc" + acc.getId() + ", loan: " + acc.getLoanValue() + "monthly: " + acc.getMonthlyPayment() + "\n";
         }
         return info;
