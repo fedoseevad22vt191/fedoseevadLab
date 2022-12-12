@@ -1,10 +1,10 @@
-package bank.utils;
+package bank.exceptions;
 
 public class NoEmployeeException extends CreditException {
     public NoEmployeeException (String error) {
         super(error);
     }
     public NoEmployeeException () {
-        super("No suitable employee found");
+        super("\nNo suitable employee found");
     }
 }

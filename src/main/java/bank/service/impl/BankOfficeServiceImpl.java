@@ -3,7 +3,7 @@ package bank.service.impl;
 import bank.entity.Bank;
 import bank.entity.BankAtm;
 import bank.entity.BankOffice;
-import bank.entity.enums.officeStatus;
+import bank.entity.enums.OfficeStatus;
 import bank.service.BankOfficeService;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     }
 
     // updates
-    public void changeStatus(BankOffice office, officeStatus status) {
+    public void changeStatus(BankOffice office, OfficeStatus status) {
         office.setStatus(status);
     }
     public void addATM(BankOffice office, Bank bank, BankAtm atm) {

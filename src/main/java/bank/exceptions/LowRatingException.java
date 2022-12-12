@@ -1,10 +1,10 @@
-package bank.utils;
+package bank.exceptions;
 
 public class LowRatingException extends CreditException {
     public LowRatingException (String error) {
         super(error);
     }
     public LowRatingException () {
-        super("Ur cringe, low elo");
+        super("\nLow user credit rating!");
     }
 }

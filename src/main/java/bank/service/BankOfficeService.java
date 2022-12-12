@@ -3,7 +3,7 @@ package bank.service;
 import bank.entity.Bank;
 import bank.entity.BankAtm;
 import bank.entity.BankOffice;
-import bank.entity.enums.officeStatus;
+import bank.entity.enums.OfficeStatus;
 
 public interface BankOfficeService {
 
@@ -19,7 +19,7 @@ public interface BankOfficeService {
     public void delete(BankOffice office);
 
     // updates
-    public void changeStatus(BankOffice office, officeStatus status);
+    public void changeStatus(BankOffice office, OfficeStatus status);
     public void addATM(BankOffice office, Bank bank, BankAtm atm);
     public void addCash(BankOffice office, Integer cash);
     public void removeATM(BankOffice office, BankAtm atm);

@@ -1,12 +1,11 @@
 package bank.service.impl;
 
 import bank.entity.*;
-import bank.entity.enums.officeStatus;
+import bank.entity.enums.OfficeStatus;
 import bank.service.PaymentAccountService;
 import bank.service.UserService;
-import bank.utils.*;
+import bank.exceptions.*;
 
-import java.io.Console;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -107,8 +106,10 @@ public class UserServiceImpl implements UserService {
     public void openCredit(User user, Integer amount, ArrayList<Bank> banks) throws CreditException {
         Bank pickedBank = null;
         int sumEntities = 0; int lowRate = 10; int lowestRate = 50;
+        int i = 1;
         for (Bank bank: banks) {
-            System.out.println(bank.getName());
+            System.out.println(i + ". " + bank.getName());
+            i++;
             // auto bank pick
             /*if (bank.getATMs().size() + bank.getOffices().size() + bank.getEmployees().size() > sumEntities && bank.getIntRate()<=lowRate) {
                 if (bank.getIntRate() < lowestRate) {
@@ -126,7 +127,7 @@ public class UserServiceImpl implements UserService {
         BankOffice pickedOffice = null;
         for (BankOffice office: offices) {
             System.out.println("\tOffice " + office.getId() + ", " + office.getStatus() + ", Loan: " + office.givesLoans());
-            if (office.getStatus() == officeStatus.WORKING && office.givesLoans() && office.givesCash()) {
+            if (office.getStatus() == OfficeStatus.WORKING && office.givesLoans() && office.givesCash()) {
                 pickedOffice = office;
                 break;
             }

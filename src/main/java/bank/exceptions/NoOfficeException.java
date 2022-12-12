@@ -1,10 +1,10 @@
-package bank.utils;
+package bank.exceptions;
 
 public class NoOfficeException extends CreditException {
     public NoOfficeException (String error) {
         super(error);
     }
     public NoOfficeException () {
-        super("No suitable office found");
+        super("\nNo suitable office found");
     }
 }
