@@ -3,6 +3,7 @@ package bank;
 import bank.entity.*;
 import bank.service.impl.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -62,6 +63,7 @@ public class Main {
                 }
                 banks.add(bank);
             }
+            userService.exportAccounts(userService.read(), "Sberbank");
         }
         catch (IOException e) {
             System.out.println("Smth wrong with file creation\n");

@@ -198,7 +198,9 @@ public class UserServiceImpl implements UserService {
         ArrayList<CreditAccount> cAccs = user.getCreditAccs();
         int accountCount = 0;
 
-        FileWriter FW = new FileWriter(new java.util.Date() + "_" + user.getId() + user.getName() + "_" + bankName);
+        String fileName = new java.util.Date() + "_" + user.getId() + user.getName() + "_" + bankName + ".txt";
+        System.out.println("Creating " + fileName + ".txt");
+        FileWriter FW = new FileWriter(fileName);
         for (PaymentAccount acc: pAccs) {
             if (bankName.equals(acc.getBank().getName())) {
                 accountCount++;
