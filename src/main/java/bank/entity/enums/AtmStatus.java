@@ -1,6 +1,6 @@
 package bank.entity.enums;
 
-public enum atmStatus {
+public enum AtmStatus {
     WORKING,
     NOTWORKING,
     NOMONEY

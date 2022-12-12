@@ -1,11 +1,11 @@
 package bank.service.impl;
 
 import bank.entity.*;
-import bank.entity.enums.officeStatus;
+import bank.entity.enums.OfficeStatus;
 import bank.service.BankService;
 import bank.service.PaymentAccountService;
 import bank.service.UserService;
-import bank.utils.*;
+import bank.exceptions.*;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -95,11 +95,11 @@ public class UserServiceImpl implements UserService {
         ArrayList<CreditAccount> creditAccounts = client.getCreditAccs();
 
         String info = "Payment accounts: \n";
-        for (PaymentAccount acc : paymentAccounts) {
+        for (PaymentAccount acc: paymentAccounts) {
             info += "\t PayAcc" + acc.getId() + ", funds: " + acc.getPaymentAccountFunds() + "\n";
         }
         info += "Credit accounts: \n";
-        for (CreditAccount acc : creditAccounts) {
+        for (CreditAccount acc: creditAccounts) {
             info += "\t PayAcc" + acc.getId() + ", loan: " + acc.getLoanValue() + "monthly: " + acc.getMonthlyPayment() + "\n";
         }
         return info;
@@ -108,8 +108,10 @@ public class UserServiceImpl implements UserService {
     public void openCredit(User user, Integer amount, ArrayList<Bank> banks) throws CreditException {
         Bank pickedBank = null;
         int sumEntities = 0; int lowRate = 10; int lowestRate = 50;
+        int i = 1;
         for (Bank bank: banks) {
-            System.out.println(bank.getName());
+            System.out.println(i + ". " + bank.getName());
+            i++;
             // auto bank pick
             /*if (bank.getATMs().size() + bank.getOffices().size() + bank.getEmployees().size() > sumEntities && bank.getIntRate()<=lowRate) {
                 if (bank.getIntRate() < lowestRate) {
@@ -119,15 +121,15 @@ public class UserServiceImpl implements UserService {
             }*/
         }
         //if (pickedBank == null) throw new NoBankException();
-        System.out.println("Write bank number you want to get a loan from: ");
-        Scanner in = new Scanner(System.in);
-        int x = in.nextInt();
-        pickedBank = banks.get(x);
+        //System.out.println("Write bank number you want to get a loan from: ");
+        //Scanner in = new Scanner(System.in);
+        int x = 1;
+        pickedBank = banks.get(x-1);
         ArrayList<BankOffice> offices = pickedBank.getOffices();
         BankOffice pickedOffice = null;
         for (BankOffice office: offices) {
             System.out.println("\tOffice " + office.getId() + ", " + office.getStatus() + ", Loan: " + office.givesLoans());
-            if (office.getStatus() == officeStatus.WORKING && office.givesLoans() && office.givesCash()) {
+            if (office.getStatus() == OfficeStatus.WORKING && office.givesLoans() && office.givesCash()) {
                 pickedOffice = office;
                 break;
             }
@@ -177,7 +179,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("Credit account created!");
         }
         else System.out.println("Credit account: " + pickedCredAcc.getId() + ", Accepted loan: " + pickedCredAcc.getLoanValue());
-        if (!(user.getLoanRating() / pickedBank.getRating() < 10) ) {
+        //if (!(user.getLoanRating() / pickedBank.getRating() < 10) ) {
             ArrayList<BankAtm> ATMs = pickedOffice.getAtms();
             BankAtm pickedATM = null;
             for (BankAtm atm : ATMs) {
@@ -187,10 +189,10 @@ public class UserServiceImpl implements UserService {
             if (pickedATM == null)
                 throw new NoOfficeFundsException();
             else System.out.println("Get your money in ATM " + pickedATM.getId());
-        }
+        /*}
         else {
             throw new LowRatingException();
-        }
+        }*/
     }
 
     public String exportAccounts(User user, String bankName) throws IOException {

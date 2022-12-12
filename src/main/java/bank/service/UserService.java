@@ -1,7 +1,7 @@
 package bank.service;
 
 import bank.entity.*;
-import bank.utils.CreditException;
+import bank.exceptions.CreditException;
 
 import java.io.File;
 import java.io.IOException;

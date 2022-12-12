@@ -1,6 +1,6 @@
 package bank.entity.enums;
 
-public enum officeStatus {
+public enum OfficeStatus {
     WORKING,
     NOTWORKING
 }

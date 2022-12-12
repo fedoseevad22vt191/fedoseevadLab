@@ -3,7 +3,7 @@ package bank.service.impl;
 import bank.entity.Bank;
 import bank.entity.BankAtm;
 import bank.entity.BankOffice;
-import bank.entity.enums.atmStatus;
+import bank.entity.enums.AtmStatus;
 import bank.service.AtmService;
 
 public class AtmServiceImpl implements AtmService {
@@ -36,7 +36,7 @@ public class AtmServiceImpl implements AtmService {
     }
 
     // updates
-    public void changeStatus(BankAtm atm, atmStatus newStatus) {
+    public void changeStatus(BankAtm atm, AtmStatus newStatus) {
         atm.setStatus(newStatus);
     }
     public void addCash(BankAtm atm, Integer cash) {

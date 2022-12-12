@@ -1,11 +1,11 @@
 package bank.entity;
-import bank.entity.enums.atmStatus;
+import bank.entity.enums.AtmStatus;
 
 public class BankAtm {
     Integer id;
     String name;
     String address;
-    atmStatus status = atmStatus.WORKING;
+    AtmStatus status = AtmStatus.WORKING;
     Bank bank;
     BankOffice office;
     Employee maintenancePerson;
@@ -39,10 +39,10 @@ public class BankAtm {
         this.address = address;
     }
 
-    public atmStatus getStatus() {
+    public AtmStatus getStatus() {
         return status;
     }
-    public void setStatus(atmStatus status) {
+    public void setStatus(AtmStatus status) {
         this.status = status;
     }
 

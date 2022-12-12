@@ -63,6 +63,7 @@ public class Main {
                 }
                 banks.add(bank);
             }
+            userService.openCredit(userService.read(),150,banks);
             userService.exportAccounts(userService.read(), "Sberbank");
         }
         catch (IOException e) {
